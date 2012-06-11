@@ -4,6 +4,14 @@ README
 Nperplex is.. nothing yet! Just a mixxed bag of C++ code. Ignore please.
 
 
+Requirements
+--------------
+
+* C++ STL
+
+* boost (http://www.boost.org/)
+Install in extlibs/boost/ or add it to the global include directory of your compiler.
+
 
 Building
 --------------

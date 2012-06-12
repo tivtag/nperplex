@@ -14,7 +14,9 @@
    
    Example:
    > NPE_WARN << "Cat detected!" << npe::endl;
+*/
 
+/*
    Macros: Logging Configuration
    
    NPE_CONFIG_LOG_INFO_DISABLED  - If defined replaces interaction with <NPE_INFO> with no-ops.
@@ -63,4 +65,3 @@
 #else
    #define NPE_DEBUG DETAIL_NPE_LOG(Debug)
 #endif
-

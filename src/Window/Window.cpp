@@ -8,5 +8,4 @@ npe::Window::Window()
 
 void npe::Window::test()
 {
-   // npe::err() << "My Error!";
 }

@@ -95,26 +95,26 @@ namespace npe
    inline const detail::NormalLog operator<<(const detail::NormalLog, const T& value) 
    {
       detail::Log::instance.write(npe::to_str(value));
-	   return detail::NormalLog();
+      return detail::NormalLog();
    }
 
    template <typename T>
    inline const detail::NoOpLog operator<<(const detail::NoOpLog, const T&) 
    {
-	   return detail::NoOpLog();
+      return detail::NoOpLog();
    }
 
    template <>
    inline const detail::NormalLog operator<<(const detail::NormalLog, const struct endl_tag&) 
    {
-	   detail::Log::instance.put('\n');
-	   detail::Log::instance.flush();
-	   return detail::NormalLog();
+      detail::Log::instance.put('\n');
+      detail::Log::instance.flush();
+      return detail::NormalLog();
    }
        
    template <>
    inline const detail::NoOpLog operator<<(const detail::NoOpLog, const struct endl_tag&) 
    {
-	   return detail::NoOpLog();
+      return detail::NoOpLog();
    }
 }

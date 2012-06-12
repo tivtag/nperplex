@@ -22,7 +22,7 @@ Nperplex uses premake to generate the Visual Studio solution or GNU makefiles.
 See: http://industriousone.com/premake
 
 ##### Windows #####
-1. Simply call make-proj-win.bat in build/
+1. Simply call make-proj-win.bat
 
 
 ### Source Documentation ###
@@ -37,7 +37,7 @@ The source code is documented in the Natural Docs-style (http://www.naturaldocs.
 ##### Windows: #####
 3. On Windows replace the content of the NaturalDocs.bat with "@perl "%~dp0NaturalDocs" %*"
    See: http://sourceforge.net/tracker/?func=detail&aid=2825083&group_id=81796&atid=564049
-4. Build doc with make-doc-win.bat in build/
+4. Build doc with make-doc-win.bat
 
 ##### Linux: #####
 3. Apply the execute attribute to the NaturalDocs file, such as with “chmod +x NaturalDocs”.

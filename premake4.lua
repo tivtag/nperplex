@@ -5,7 +5,7 @@ solution "nperplex"
    language "C++"
    flags    {"ExtraWarnings"}
 
-   location "../project/"
+   location "project/"
            
    configuration "Release*"
       defines   {"NDEBUG"}
@@ -27,23 +27,23 @@ solution "nperplex"
       --  kind "SharedLib"
             
       files {
-         "../src/Audio/**.cpp",
-         "../src/Graphic/**.cpp*",
-         "../src/System/**.cpp",
-         "../src/Window/**.cpp",
+         "src/Audio/**.cpp",
+         "src/Graphic/**.cpp*",
+         "src/System/**.cpp",
+         "src/Window/**.cpp",
          
-         "../include/Npe/Audio/**.hpp",
-         "../include/Npe/Graphic/**.hpp*",
-         "../include/Npe/System/**.hpp",
-         "../include/Npe/System/**.inl",
-         "../include/Npe/Window/**.hpp",
-         "../include/Npe/Math/**.hpp",
-         "../include/Npe/Math/**.inl"
+         "include/Npe/Audio/**.hpp",
+         "include/Npe/Graphic/**.hpp*",
+         "include/Npe/System/**.hpp",
+         "include/Npe/System/**.inl",
+         "include/Npe/Window/**.hpp",
+         "include/Npe/Math/**.hpp",
+         "include/Npe/Math/**.inl"
       }
 
-      includedirs  { "../include", "../extlibs/boost" }     
+      includedirs  { "include", "extlibs/boost" }     
       links {}
-      targetdir "../bin/lib"
+      targetdir "bin/lib"
 
       configuration "ReleaseLib"
          targetsuffix "-win32"
@@ -54,18 +54,18 @@ solution "nperplex"
    project "nperplex.example.quick"
       kind "ConsoleApp"
       files {
-         "../examples/quick/main.cpp"
+         "examples/quick/main.cpp"
       }
       
-      libdirs      { "../bin/lib" }
-      includedirs  { "../include", "../extlibs/boost" }
+      libdirs      { "bin/lib" }
+      includedirs  { "include", "extlibs/boost" }
       buildoptions {}
 
       configuration "Release*"
          links { "nperplex", "nperplex-win32" }
-         targetdir "../bin/examples/release"
+         targetdir "bin/examples/release"
 
       configuration "Debug*"
          links { "nperplex", "nperplex-win32-d" }
-         targetdir "../bin/examples/debug"
+         targetdir "bin/examples/debug"
                 

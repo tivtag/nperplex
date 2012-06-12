@@ -11,21 +11,17 @@ using namespace npe;
 
 int main()
 {
-    //NPE_INFO 
-    //   << "Hello! " 
-    //   << 1234567890
-    //   << npe::endl
-    //   << "No!!"
-    //   << npe::endl;
+    NPE_INFO 
+       << "Compiler=" 
+       << NPE_COMPILER
+       << " Compiler Version="
+       << NPE_COMPILER_VERSION
+#if defined(NPE_COMPILER_CPP11)
+       << " Supports CP11!"
+#endif
+       << npe::endl;
 
-    npe::ILogListener* listener = new npe::StdLogListener();
-
-    delete listener;
-
-
-
-    //npe::Window window;
     //NPE_WARN << "Warn! " << npe::close_enough(1.0f, 1.000001f) << " " << npe::close_enough(1.0f, 1.01f) << npe::endl;
-    //std::cin.ignore();
+    std::cin.ignore();
     return 0;
 }

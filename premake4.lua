@@ -11,13 +11,18 @@ solution "nperplex"
       defines   {"NDEBUG"}
       flags     {"Optimize"}
       
-   configuration {"Release*", "vs*"}
-      buildoptions {"/GS-", "/wD9025"} -- Disable Buffer Security Check in VS release builds
-      
    configuration "Debug*"     
       defines   {"_DEBUG", "DEBUG"}
       flags     {"Symbols"}
-              
+
+   -- Visual Studio 
+   configuration {"Release*", "vs*"}
+      buildoptions {"/GS-", "/wD9025"} -- Disable Buffer Security Check in VS release builds
+      
+   -- GCC
+   configuration { "gmake" }
+      buildoptions { "-std=c++0x" }
+
    project "nperplex"
       kind "StaticLib"
    

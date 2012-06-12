@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Diagnostics\LogLevel.hpp"
-#include "Diagnostics\Log.hpp"
+#include "Diagnostics/LogLevel.hpp"
+#include "Diagnostics/Log.hpp"
 
 /*
    Macros: Logging
@@ -63,3 +63,4 @@
 #else
    #define NPE_DEBUG DETAIL_NPE_LOG(Debug)
 #endif
+

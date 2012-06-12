@@ -5,6 +5,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/current_function.hpp>
 
+#include <Npe/System/Pointer.hpp>
 #include <Npe/System/ToString.hpp>
 
 namespace npe
@@ -78,7 +79,7 @@ namespace npe
          
       private:
          Log();
-         typedef std::vector<std::shared_ptr<npe::ILogListener>> ListenerList;
+         typedef std::vector<std::shared_ptr<npe::ILogListener> > ListenerList;
 
          LogLevel::Enum level;
          std::string fileName;

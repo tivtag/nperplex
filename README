@@ -16,13 +16,18 @@ Install in extlibs/boost/ or add it to the global include directory of your comp
 Building
 --------------
 
-### Build Files ###
+### Library + Examples ###
 
 Nperplex uses premake to generate the Visual Studio solution or GNU makefiles.
 See: http://industriousone.com/premake
 
 ##### Windows #####
 1. Simply call make-proj-win.bat
+2. Open solution in VS
+3. Compile
+
+##### Linux #####
+1. Simply call make-proj-lin.bat
 
 
 ### Source Documentation ###

@@ -4,19 +4,46 @@
 #include <Npe/Window/Window.hpp>
 #include <Npe/System/Log.hpp>
 
+#include <boost/thread.hpp>
+
 using namespace npe;
 
 int main()
 {
-   NPE_INFO 
-      << "Compiler=" 
-      << NPE_COMPILER
-      << " Compiler Version="
-      << NPE_COMPILER_VERSION
-   #if defined(NPE_COMPILER_CPP11)
-      << " Supports CP11!"
-   #endif
-      << npe::endl;
+   {
+      NPE_INFO 
+         << "Compiler=" 
+         << NPE_COMPILER
+         << " Compiler Version="
+         << NPE_COMPILER_VERSION
+      #if defined(NPE_COMPILER_CPP11)
+         << " Supports CP11!";
+      #endif
+   }
+
+   boost::thread thread([]{
+      int y = 0;
+         for(int x = 0; x < 2; ++x)
+         {
+            NPE_INFO << "Info " << y << " " << x << npe::endl;        
+            NPE_WARN << "Info " << y << " " << x << npe::endl;        
+            NPE_FAIL << "Info " << y << " " << x << npe::endl;
+         }
+   });
+
+   boost::thread thread2([]{
+      int y = 1;
+         for(int x = 0; x < 2; ++x)
+         {
+            NPE_INFO << "Info " << y << " " << x << npe::endl;        
+            NPE_WARN << "Info " << y << " " << x << npe::endl;        
+            NPE_FAIL << "Info " << y << " " << x << npe::endl;
+         }
+   });
+
+   thread2.join();
+   thread.join();
+
 
    float e = std::numeric_limits<float>::epsilon();
    float a = 0.5f;

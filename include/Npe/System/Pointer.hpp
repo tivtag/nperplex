@@ -3,7 +3,7 @@
 #include "Compiler.hpp"
 
 #ifdef NPE_COMPILER_CPP11
-#   include <memory> // std::shared_ptr, std::make_shared
+#   include <memory> // std::shared_ptr, std::make_shared, ..
 #else
 #   define nullptr 0
 #   include <boost/shared_ptr.hpp>

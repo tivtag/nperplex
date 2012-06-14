@@ -1,3 +1,8 @@
+# Directories
 project/
 bin/
 doc/
+
+# VIM
+*.swp
+

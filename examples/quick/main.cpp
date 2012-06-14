@@ -3,47 +3,32 @@
 #include <Npe/Math/Float.hpp>
 #include <Npe/Window/Window.hpp>
 #include <Npe/System/Log.hpp>
-
-#include <boost/thread.hpp>
+#include <Npe/System/Thread.hpp>
 
 using namespace npe;
 
 int main()
 {
-   {
-      NPE_INFO 
-         << "Compiler=" 
-         << NPE_COMPILER
-         << " Compiler Version="
-         << NPE_COMPILER_VERSION
-      #if defined(NPE_COMPILER_CPP11)
-         << " Supports CP11!";
-      #endif
-   }
+   NPE_INFO 
+      << "Compiler=" 
+      << NPE_COMPILER
+      << " Compiler Version="
+      << NPE_COMPILER_VERSION
 
-   boost::thread thread([]{
-      int y = 0;
-         for(int x = 0; x < 2; ++x)
-         {
-            NPE_INFO << "Info " << y << " " << x << npe::endl;        
-            NPE_WARN << "Info " << y << " " << x << npe::endl;        
-            NPE_FAIL << "Info " << y << " " << x << npe::endl;
-         }
-   });
+   #ifdef NPE_COMPILER_CPP11
+      << " Supports C++11!"
+   #endif
 
-   boost::thread thread2([]{
-      int y = 1;
-         for(int x = 0; x < 2; ++x)
-         {
-            NPE_INFO << "Info " << y << " " << x << npe::endl;        
-            NPE_WARN << "Info " << y << " " << x << npe::endl;        
-            NPE_FAIL << "Info " << y << " " << x << npe::endl;
-         }
-   });
-
-   thread2.join();
-   thread.join();
-
+   #ifdef NPE_USE_THREADS
+   #   ifdef NPE_COMPILER_SUPPORTS_THREADS
+      << " Using STL threads"
+   #   else
+      << " Using boost threads"
+   #   endif 
+   #endif
+      << npe::endl;
+   
+   static std::mutex my_mutex;
 
    float e = std::numeric_limits<float>::epsilon();
    float a = 0.5f;
@@ -61,7 +46,7 @@ int main()
    std::cout << "abs:     " << npe::close_abs(a, b, e) << std::endl;
    std::cout << "rel:     " << npe::close_rel(a, b, e) << std::endl;
    std::cout << "ulp:     " << npe::close_ulp(a, b) << std::endl;
-
+   
    std::cin.ignore();
    return 0;
 }

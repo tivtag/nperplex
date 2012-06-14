@@ -15,14 +15,16 @@ namespace npe
    {
       virtual void write(const npe::LogMessage& message)
       {  
+	 const npe::LogSource& source = message.source;
          const bool evil = message.level != npe::LogLevel::Info && message.level != npe::LogLevel::Debug;
          std::ostream& stream = evil ? std::cerr : std::cout;
+
 
          stream << npe::to_str(message.level);
          
          if( evil )
          {
-            stream << " | " << message.fileName << " " << message.funcName << " at line " << message.line;
+            stream << " | " << source.fileName << " " << source.funcName << " at line " << source.line;
          }
          
          stream << ": "  << message.text;
@@ -30,3 +32,4 @@ namespace npe
       }
    };
 }
+

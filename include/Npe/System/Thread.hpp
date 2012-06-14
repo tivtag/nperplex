@@ -1,14 +1,10 @@
 #pragma once
 
-/*
-   Define: NPE_USE_THREADS
-   
-   Build flag that states whether the system should be build with multi-threading support.
-   Enabling this requires additional dependencies depending on your compiler and platform.
-*/
+#include "BuildOptions.hpp"
+#include "Compiler.hpp"
 
-#if NPE_USE_THREADS
-#  if NPE_COMPILER_SUPPORTS_THREADS
+#ifdef NPE_USE_THREADS
+#  ifdef NPE_COMPILER_SUPPORTS_THREADS
 #     include <thread>
 #     include <mutex>
 #  else
@@ -19,8 +15,9 @@
       {
          using boost::thread;
          using boost::mutex;
-         using boost::mutex::scoped_lock;
+         using boost::mutex::lock_guard;
       }
 
 #  endif
 #endif
+

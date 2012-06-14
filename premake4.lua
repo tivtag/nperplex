@@ -1,6 +1,8 @@
+-- thread-support = True
+
 solution "nperplex"
    configurations {"ReleaseLib", "DebugLib"}
-   platforms { "x32" }
+   platforms { "x32", "x64" }
    
    language "C++"
    flags    {"ExtraWarnings"}
@@ -19,9 +21,9 @@ solution "nperplex"
    configuration {"Release*", "vs*"}
       buildoptions {"/GS-", "/wD9025"} -- Disable Buffer Security Check in VS release builds
       
-   -- GCC
+   -- GCC 4.7
    configuration { "gmake" }
-      buildoptions { "-std=c++0x" }
+      buildoptions { "-std=c++11", "-pthread" }
 
    project "nperplex"
       kind "StaticLib"
@@ -71,6 +73,6 @@ solution "nperplex"
          targetdir "bin/examples/release"
 
       configuration "Debug*"
-         links { "nperplex", "nperplex-win32-d" }
+         links { "nperplex", "nperplex-win32-d", "pthread" }
          targetdir "bin/examples/debug"
                 

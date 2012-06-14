@@ -46,7 +46,7 @@ namespace npe
          Starts a new log entry with file, function and line information. 
          Use <<-syntax to write to the log. End a log line using << npe::endl.
       */
-      #define DETAIL_NPE_LOG(level) std::unique_ptr<::npe::detail::NormalLogStream>(new ::npe::detail::NormalLogStream(::npe::LogLevel::level, __FILE__, BOOST_CURRENT_FUNCTION, __LINE__))
+      #define DETAIL_NPE_LOG(level) std::unique_ptr< ::npe::detail::NormalLogStream>(new ::npe::detail::NormalLogStream(::npe::LogLevel::level, __FILE__, BOOST_CURRENT_FUNCTION, __LINE__))
 
       /*
          Detail Macro: DETAIL_NPE_LOG_DISABLED
@@ -82,7 +82,7 @@ namespace npe
             listeners.clear();
          }
       
-         void write(const std::string text, const npe::LogSource& source);
+         void write(const npe::LogMessage& message);
          
       private:
          Log();
@@ -106,10 +106,10 @@ namespace npe
       struct LogStream { };
             
       template<> 
-      struct LogStream<true> : public npe::LogSource
+      struct LogStream<true> : private boost::noncopyable
       {     
          LogStream(const LogLevel::Enum _level, const std::string& _fileName, const std::string& _funcName, const int _line)
-            : LogSource(_level, _fileName, _funcName, _line)
+            : level(_level), source(_fileName, _funcName, _line)
          {
          }
          
@@ -136,10 +136,13 @@ namespace npe
          }
 
       private:
-
          void write_final_message()
          {
-            detail::Log::instance.write(buffer.str(), *this);
+            const std::string text = buffer.str();
+            if(text.size() > 0)
+            {           
+               detail::Log::instance.write(npe::LogMessage(level, text, source));
+            }
          }
 
          void clear_buffer()
@@ -149,6 +152,8 @@ namespace npe
          }
          
          std::ostringstream buffer;
+         const LogLevel::Enum level;
+         const npe::LogSource source;
       };
 
       typedef LogStream<true> NormalLogStream;

@@ -10,22 +10,16 @@ Log::Log()
    push_back(std::make_shared<npe::StdLogListener>());
 }
 
-
-void Log::write(const std::string text, const npe::LogSource& source)
+void Log::write(const npe::LogMessage& message)
 {
 #ifdef NPE_USE_THREADS
    static std::mutex mutex;
-   std::scoped_lock lock(mutex);
+   std::lock_guard<std::mutex> lock(mutex);
 #endif
 
-   if(text.size() > 0)
+   for(ListenerList::iterator itr = listeners.begin(); itr != listeners.end(); ++itr)
    {
-      const npe::LogMessage message(text, source.level, source.fileName, source.funcName, source.line);
-
-      for(ListenerList::iterator itr = listeners.begin(); itr != listeners.end(); ++itr)
-      {
-         (*itr)->write(message);
-      }
+      (*itr)->write(message);
    }
 }
 

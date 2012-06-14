@@ -17,7 +17,7 @@ namespace npe
       {
       }
  
-      const npe::LogLevel::Enum level;     
+      const npe::LogLevel::Enum level;
       const std::string& text;
       const npe::LogSource& source;
    };

@@ -14,22 +14,20 @@ namespace npe
    struct StdLogListener : public npe::ILogListener
    {
       virtual void write(const npe::LogMessage& message)
-      {  
-	 const npe::LogSource& source = message.source;
+      {
+         const npe::LogSource& source = message.source;
          const bool evil = message.level != npe::LogLevel::Info && message.level != npe::LogLevel::Debug;
          std::ostream& stream = evil ? std::cerr : std::cout;
-
-
+         
          stream << npe::to_str(message.level);
          
          if( evil )
          {
             stream << " | " << source.fileName << " " << source.funcName << " at line " << source.line;
          }
-         
+
          stream << ": "  << message.text;
          stream.flush();
       }
    };
 }
-

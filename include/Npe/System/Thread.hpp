@@ -15,7 +15,7 @@
       {
          using boost::thread;
          using boost::mutex;
-         using boost::mutex::lock_guard;
+         using boost::lock_guard;
       }
 
 #  endif

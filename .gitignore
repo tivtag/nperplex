@@ -1,7 +1,7 @@
 # Directories
-project/
-bin/
-doc/
+/project/
+/bin/
+/doc/
 
 # VIM
 *.swp

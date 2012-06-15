@@ -1,12 +1,9 @@
--- thread-support = True
-
 solution "nperplex"
-   configurations {"ReleaseLib", "DebugLib"}
-   platforms { "x32", "x64" }
-   
    language "C++"
-   flags    {"ExtraWarnings"}
-
+   platforms { "x32" }
+   flags     {"ExtraWarnings"}
+   
+   configurations {"ReleaseLib", "DebugLib"}
    location "project/"
            
    configuration "Release*"
@@ -23,16 +20,23 @@ solution "nperplex"
       
    -- GCC 4.7
    configuration { "gmake" }
-      buildoptions { "-std=c++11", "-pthread" }
+      buildoptions { "-std=c++11", "-pthread" }         
+      links { "pthread" }
+         
+   -- Libs
+      
+   if os.is("windows") then
+      configuration "Release*"
+         libdirs  { "extlibs/boost/stage/lib", "extlibs/bin/win32/release" }
+                     
+      configuration "Debug*"
+         libdirs  { "extlibs/boost/stage/lib", "extlibs/bin/win32/debug" }
+   else
+   end
 
    project "nperplex"
       kind "StaticLib"
-   
-      --configuration "*Lib"
-      --  kind "StaticLib"
-      --configuration "*DLL"
-      --  kind "SharedLib"
-            
+               
       files {
          "src/Audio/**.cpp",
          "src/Graphic/**.cpp*",
@@ -48,15 +52,15 @@ solution "nperplex"
          "include/Npe/Math/**.inl"
       }
 
-      includedirs  { "include", "extlibs/boost" }     
+      includedirs  { "include", "extlibs/boost", "extlibs/include/" }     
       links {}
       targetdir "bin/lib"
-
+      
       configuration "ReleaseLib"
-         targetsuffix "-win32"
+         targetsuffix "-lib"
 
       configuration "DebugLib"
-         targetsuffix "-win32-d"
+         targetsuffix "-lib-d"
 
    project "nperplex.example.quick"
       kind "ConsoleApp"
@@ -69,10 +73,10 @@ solution "nperplex"
       buildoptions {}
 
       configuration "Release*"
-         links { "nperplex", "nperplex-win32" }
+         links { "nperplex", "nperplex-lib" }
          targetdir "bin/examples/release"
 
       configuration "Debug*"
-         links { "nperplex", "nperplex-win32-d", "pthread" }
+         links { "nperplex", "nperplex-lib-d" }
          targetdir "bin/examples/debug"
                 

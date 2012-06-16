@@ -1,6 +1,6 @@
 solution "nperplex"
    language "C++"
-   platforms { "x32" }
+   platforms { "x32", "x64" }
    flags     {"ExtraWarnings"}
    
    configurations {"ReleaseLib", "DebugLib"}
@@ -21,10 +21,10 @@ solution "nperplex"
    -- GCC 4.7
    configuration { "gmake" }
       buildoptions { "-std=c++11", "-pthread" }         
-      links { "pthread" }
+      links { "pthread", "glfw" } --, "libglew" }
+      linkoptions { "-L/usr/lib" }
          
    -- Libs
-      
    if os.is("windows") then
       configuration "Release*"
          libdirs  { "extlibs/boost/stage/lib", "extlibs/bin/win32/release" }

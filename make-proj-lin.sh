@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # requires permission: chmod 775 make-proj-lin.sh
-conf=debuglib32
+conf=debuglib64
 
 # gen make files
 premake4 gmake

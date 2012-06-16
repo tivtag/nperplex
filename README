@@ -34,7 +34,8 @@ See: http://industriousone.com/premake
 3. Compile
 
 ##### Linux #####
-1. Simply call make-proj-lin.bat
+1. chmod 775 make-proj-lin.sh
+2. Simply call make-proj-lin.bat
 
 
 ### Source Documentation ###

@@ -6,6 +6,6 @@ conf=debuglib64
 # gen make files
 premake4 gmake
 
-rm bin/* -r
+rm -r -f bin/*
 make -C project config=$conf
 

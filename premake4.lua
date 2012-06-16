@@ -20,9 +20,9 @@ solution "nperplex"
       
    -- GCC 4.7
    configuration { "gmake" }
+      links { "pthread", "glfw", "GLEW" }
       buildoptions { "-std=c++11", "-pthread" }         
-      links { "pthread", "glfw" } --, "libglew" }
-      linkoptions { "-L/usr/lib" }
+      linkoptions { "-L/usr/lib", "-L/usr/lib/x86_64-linux-gnu" }
          
    -- Libs
    if os.is("windows") then

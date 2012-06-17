@@ -1,5 +1,19 @@
-usethreads        = true
-useGLES2emulation = false
+usethreads = true
+useGLES2   = false
+
+function configexample()
+   libdirs      { "bin/lib" }
+   includedirs  { "include", "extlibs/boost", "extlibs/include/" }
+   buildoptions {}
+
+   configuration "Release*"
+      links { "nperplex", "nperplex-lib" }
+      targetdir "bin/examples/release"
+
+   configuration "Debug*"
+      links { "nperplex", "nperplex-lib-d" }
+      targetdir "bin/examples/debug"
+end 
 
 solution "nperplex"
    language "C++"
@@ -25,11 +39,10 @@ solution "nperplex"
    -- GCC 4.7
    configuration { "gmake" }
       buildoptions { "-std=c++11" }      
-      if usethreads then      
+      if usethreads then
          links { "pthread" }
          buildoptions { "-pthread" }
-      end               
-      links { "glfw", "GLEW" }
+      end
       buildoptions { "-std=c++11" }         
       linkoptions { "-L/usr/lib", "-L/usr/lib/x86_64-linux-gnu" }
          
@@ -49,18 +62,26 @@ solution "nperplex"
    if usethreads then
       defines { "NPE_USE_THREADS" }
    end
+   
+   if useGLES2 then
+      defines { "NPE_OPENGL=NPE_OPENGL_ES2" }
+      links { "EGL", "GLESv2" }
+   else
+      defines { "NPE_OPENGL=NPE_OPENGL_EW" }
+      links { "glfw", "GLEW", "opengl32"}
+   end
 
    project "nperplex"
       kind "StaticLib"
                
       files {
          "src/Audio/**.cpp",
-         "src/Graphic/**.cpp*",
+         "src/Graphics/**.cpp",
          "src/System/**.cpp",
          "src/Window/**.cpp",
          
          "include/Npe/Audio/**.hpp",
-         "include/Npe/Graphic/**.hpp*",
+         "include/Npe/Graphics/**.hpp",
          "include/Npe/System/**.hpp",
          "include/Npe/System/**.inl",
          "include/Npe/Window/**.hpp",
@@ -76,22 +97,15 @@ solution "nperplex"
 
       configuration "DebugLib"
          targetsuffix "-lib-d"
-
+         
    project "nperplex.example.quick"
-      kind "ConsoleApp"
-      files {
-         "examples/quick/main.cpp"
-      }
+      kind "ConsoleApp"  
+      files { "examples/quick/main.cpp" }      
+      configexample()     
+
       
-      libdirs      { "bin/lib" }
-      includedirs  { "include", "extlibs/boost" }
-      buildoptions {}
-
-      configuration "Release*"
-         links { "nperplex", "nperplex-lib" }
-         targetdir "bin/examples/release"
-
-      configuration "Debug*"
-         links { "nperplex", "nperplex-lib-d" }
-         targetdir "bin/examples/debug"
-                
+   project "nperplex.example.window"
+      kind "ConsoleApp"      
+      files { "examples/window/main.cpp" }      
+      configexample()
+      

@@ -1,14 +1,22 @@
 #pragma once
 
-#include <Npe/System/Platform.hpp>
+#include <Npe/Graphics/OpenGL.hpp>
 
-#if NPE_PLATFORM == NPE_PLATFORM_ANDROID || defined(NPE_USE_GLES2_EMULATION)
-#  include "EGL/Window.hpp"
+#if NPE_OPENGL == NPE_OPENGL_ES2
+#  include "EGL/WindowImpl.hpp"
 #else
-#  include "GLFW/Window.hpp"
+#  include "GLFW/WindowImpl.hpp"
 #endif
 
 namespace npe
 {
+   class Window
+   {
+   public:
+      bool create(const int width, const int height, const bool fullscreen);
+
+   private:
+      detail::WindowImpl impl;
+   };
 }
 

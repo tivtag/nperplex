@@ -4,13 +4,20 @@ README
 Nperplex is.. nothing yet! Just a mixxed bag of C++ code. Ignore please.
 
 
-Requirements
+Dependencies
 --------------
 
 * C++ STL
 
 * boost (http://www.boost.org/)
 Install in extlibs/boost/ or add it to the global include directory of your compiler.
+
+* GLEW, GLFW
+Windows:
+Prebuild in repository
+
+Linux:
+sudo apt-get install libglew1.7 libGLFW-dev
 
 
 Building
@@ -27,7 +34,8 @@ See: http://industriousone.com/premake
 3. Compile
 
 ##### Linux #####
-1. Simply call make-proj-lin.bat
+1. chmod 775 make-proj-lin.sh
+2. Simply call make-proj-lin.bat
 
 
 ### Source Documentation ###

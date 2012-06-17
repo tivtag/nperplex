@@ -3,7 +3,7 @@ useGLES2emulation = false
 
 solution "nperplex"
    language "C++"
-   platforms { "x32" }
+   platforms { "x32", "x64" }
    flags     {"ExtraWarnings"}
    
    configurations {"ReleaseLib", "DebugLib"}
@@ -24,11 +24,17 @@ solution "nperplex"
       
    -- GCC 4.7
    configuration { "gmake" }
+<<<<<<< HEAD
       buildoptions { "-std=c++11" }      
       if usethreads then      
          links { "pthread" }
          buildoptions { "-pthread" }
       end               
+=======
+      links { "pthread", "glfw", "GLEW" }
+      buildoptions { "-std=c++11", "-pthread" }         
+      linkoptions { "-L/usr/lib", "-L/usr/lib/x86_64-linux-gnu" }
+>>>>>>> remotes/origin/master
          
    -- Libs
    if os.is("windows") then

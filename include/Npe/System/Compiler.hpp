@@ -51,6 +51,6 @@
 #      define NPE_COMPILER_SUPPORTS_THREADS // must link with pthread
 #    endif
 #else
-#   pragma error "Unknown compiler. See Compiler.hpp!"
+#   error Unknown compiler. See Compiler.hpp!
 #endif
 

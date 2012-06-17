@@ -1,3 +1,6 @@
+usethreads        = true
+useGLES2emulation = false
+
 solution "nperplex"
    language "C++"
    platforms { "x32" }
@@ -5,6 +8,7 @@ solution "nperplex"
    
    configurations {"ReleaseLib", "DebugLib"}
    location "project/"
+   flags { "NoRTTI" }
            
    configuration "Release*"
       defines   {"NDEBUG"}
@@ -13,25 +17,34 @@ solution "nperplex"
    configuration "Debug*"     
       defines   {"_DEBUG", "DEBUG"}
       flags     {"Symbols"}
-
+   
    -- Visual Studio 
    configuration {"Release*", "vs*"}
       buildoptions {"/GS-", "/wD9025"} -- Disable Buffer Security Check in VS release builds
       
    -- GCC 4.7
    configuration { "gmake" }
-      buildoptions { "-std=c++11", "-pthread" }         
-      links { "pthread" }
+      buildoptions { "-std=c++11" }      
+      if usethreads then      
+         links { "pthread" }
+         buildoptions { "-pthread" }
+      end               
          
    -- Libs
-      
    if os.is("windows") then
       configuration "Release*"
          libdirs  { "extlibs/boost/stage/lib", "extlibs/bin/win32/release" }
                      
       configuration "Debug*"
          libdirs  { "extlibs/boost/stage/lib", "extlibs/bin/win32/debug" }
+      defines { "NPE_PLATFORM=NPE_PLATFORM_WINDOWS"}
    else
+      defines { "NPE_PLATFORM=NPE_PLATFORM_LINUX"}
+   end
+   
+   -- Defines
+   if usethreads then
+      defines { "NPE_USE_THREADS" }
    end
 
    project "nperplex"
@@ -52,8 +65,7 @@ solution "nperplex"
          "include/Npe/Math/**.inl"
       }
 
-      includedirs  { "include", "extlibs/boost", "extlibs/include/" }     
-      links {}
+      includedirs  { "include", "extlibs/boost", "extlibs/include/" }
       targetdir "bin/lib"
       
       configuration "ReleaseLib"

@@ -24,17 +24,14 @@ solution "nperplex"
       
    -- GCC 4.7
    configuration { "gmake" }
-<<<<<<< HEAD
       buildoptions { "-std=c++11" }      
       if usethreads then      
          links { "pthread" }
          buildoptions { "-pthread" }
       end               
-=======
-      links { "pthread", "glfw", "GLEW" }
-      buildoptions { "-std=c++11", "-pthread" }         
+      links { "glfw", "GLEW" }
+      buildoptions { "-std=c++11" }         
       linkoptions { "-L/usr/lib", "-L/usr/lib/x86_64-linux-gnu" }
->>>>>>> remotes/origin/master
          
    -- Libs
    if os.is("windows") then

@@ -12,7 +12,7 @@
       glfwTerminate();
    }
 
-   bool npe::detail::WindowImpl::create(const int width, const int height, const bool fullscreen)
+   bool npe::detail::WindowImpl::create(const npe::VideoMode& mode, const bool fullscreen)
    { 
       if( !glfwInit() )
       {
@@ -22,7 +22,7 @@
       
       glfwCloseWindow();
 
-      if( !glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW) )
+      if( !glfwOpenWindow(mode.size.x, mode.size.y, 8, 8, 8, 8, 0, 0, fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW) )
       {
          NPE_ERROR << "Could not open GLFW window." << npe::endl;
          return false;

@@ -1,11 +1,11 @@
 #include <Npe/Window/Window.hpp>
 #include <Npe/System/Log.hpp>
 
-bool npe::Window::create(const int width, const int height, const bool fullscreen)
+bool npe::Window::create(const npe::VideoMode& mode, const bool fullscreen)
 {
-   if(!impl.create(width, height, fullscreen))
+   if(!impl.create(mode, fullscreen))
    {
-      NPE_ERROR << "Could not create window (" << width << "x" << height << (fullscreen ? " @ fullscreen)" : ")");
+      NPE_ERROR << "Could not create window (" << mode.size.x << "x" << mode.size.y << (fullscreen ? " @ fullscreen)" : ")");
       return false;
    }
 

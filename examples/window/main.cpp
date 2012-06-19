@@ -8,7 +8,7 @@ using namespace npe;
 int main()
 {
    npe::Window window;
-   window.create(800, 600, false);
+   window.create(npe::VideoMode(glm::size2(800, 600)), false);
 
    std::cin.ignore();   
    return 0;

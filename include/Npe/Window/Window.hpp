@@ -8,12 +8,14 @@
 #  include "GLFW/WindowImpl.hpp"
 #endif
 
+#include "VideoMode.hpp"
+
 namespace npe
 {
    class Window
    {
    public:
-      bool create(const int width, const int height, const bool fullscreen);
+      bool create(const npe::VideoMode& mode, const bool fullscreen);
 
    private:
       detail::WindowImpl impl;

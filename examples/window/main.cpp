@@ -1,5 +1,6 @@
 
 #include <iostream>
+
 #include <Npe/Window/Window.hpp>
 
 using namespace npe;

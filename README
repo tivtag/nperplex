@@ -12,6 +12,8 @@ Dependencies
 * boost (http://www.boost.org/)
 Install in extlibs/boost/ or add it to the global include directory of your compiler.
 
+* GLM (http://glm.g-truc.net/)
+
 * GLEW, GLFW
 Windows:
 Prebuild in repository

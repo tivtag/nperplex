@@ -2,7 +2,7 @@
 
 #if NPE_OPENGL == NPE_OPENGL_EW
 #  include <Npe/System/Log.hpp>
-#  include <GL/GLFW.h>
+#  include <GL/glfw.h>
 
    npe::detail::WindowImpl:: ~WindowImpl()
    {

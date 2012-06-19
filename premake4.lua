@@ -1,5 +1,6 @@
 usethreads = true
 useGLES2   = false
+useRTTI    = true
 
 function configexample()
    libdirs      { "bin/lib" }
@@ -22,7 +23,6 @@ solution "nperplex"
    
    configurations {"ReleaseLib", "DebugLib"}
    location "project/"
-   flags { "NoRTTI" }
            
    configuration "Release*"
       defines   {"NDEBUG"}
@@ -59,6 +59,11 @@ solution "nperplex"
    end
    
    -- Defines
+   if not useRTTI then
+      flags { "NoRTTI" }
+      defines { "BOOST_NO_RTTI", "BOOST_NO_TYPEID" }
+   end
+
    if usethreads then
       defines { "NPE_USE_THREADS" }
    end
@@ -68,7 +73,13 @@ solution "nperplex"
       links { "EGL", "GLESv2" }
    else
       defines { "NPE_OPENGL=NPE_OPENGL_EW" }
-      links { "glfw", "GLEW", "opengl32"}
+      links { "glfw", "GLEW" }
+
+      configuration "*vs"
+         links { "opengl32"}
+
+      configuration "gmake"
+         links { "GL" }
    end
 
    project "nperplex"
